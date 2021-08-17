@@ -7,6 +7,9 @@ module.exports = {
       fontFamily: {
         body: ['Nunito', 'Poppins', 'sans-serif'],
       },
+      backgroundImage: () => ({
+        home: "url('/images/background.png')",
+      }),
     },
   },
   variants: {
