@@ -5,6 +5,7 @@ const Landing = () => {
     <section className="relative">
       <div className="relative min-h-[calc(100vh-72px)]">
         <Image
+          alt="hero"
           src="/images/hero-background.jpg"
           layout="fill"
           objectFit="cover"
@@ -14,6 +15,7 @@ const Landing = () => {
         <div className="absolute flex flex-col space-y-3 top-1/4 w-full justify-center items-center max-w-screen-sm mx-auto p-8 -mt-16">
           <Image
             src="/images/cta-logo-one.svg"
+            alt="logo"
             width="600"
             height="150"
             objectFit="contain"
@@ -28,6 +30,7 @@ const Landing = () => {
           </p>
           <Image
             src="/images/cta-logo-two.png"
+            alt="logo"
             width="600"
             height="70"
             objectFit="contain"

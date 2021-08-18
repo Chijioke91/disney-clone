@@ -28,6 +28,7 @@ export default function Movie({ result }: IProps) {
               `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
               `${BASE_URL}${result.poster_path}`
             }
+            alt="thumbnail"
             layout="fill"
             objectFit="cover"
           />
@@ -40,7 +41,7 @@ export default function Movie({ result }: IProps) {
             <button className="text-xs md:text-base bg-[#f9f9f9] text-black flex items-center justify-center py-2.5 px-6 rounded hover:bg-[#c6c6c6]">
               <img
                 src="/images/play-icon-black.svg"
-                alt=""
+                alt="thumbnail"
                 className="h-6 md:h-8"
               />
               <span className="uppercase font-medium tracking-wide">Play</span>
@@ -52,7 +53,7 @@ export default function Movie({ result }: IProps) {
             >
               <img
                 src="/images/play-icon-white.svg"
-                alt=""
+                alt="thumbnail"
                 className="h-6 md:h-8"
               />
               <span className="uppercase font-medium tracking-wide">
@@ -65,14 +66,22 @@ export default function Movie({ result }: IProps) {
             </div>
 
             <div className="rounded-full border-2 border-white flex items-center justify-center w-11 h-11 cursor-pointer bg-black/60">
-              <img src="/images/group-icon.svg" alt="" />
+              <img src="/images/group-icon.svg" alt="group" />
             </div>
           </div>
 
           <p className="text-xs md:text-sm">
-            {result.release_date} • {Math.floor(result.runtime! / 60)}h{' '}
-            {result.runtime! % 60}m •{' '}
-            {result.genres!.map((genre) => genre.name + ' ')}{' '}
+            <span>
+              {result.release_date} • {Math.floor(result.runtime! / 60)}h{' '}
+            </span>
+            <span>{result.runtime! % 60}m • </span>
+            {result.genres!.map((genre) => (
+              <span key={genre.id}>
+                <span>{genre.name} </span>
+                <span> </span>
+              </span>
+            ))}
+            {/* <span>{result.genres!.map((genre) => genre.name + ' ')}{' '}</span> */}
           </p>
           <h4 className="text-sm md:text-lg max-w-4xl">{result.overview}</h4>
         </div>

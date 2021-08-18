@@ -9,7 +9,12 @@ export type PartnerType = {
 const Partner = () => {
   return (
     <>
-      <Image src="/images/disnep.png" layout="fill" objectFit="cover" />
+      <Image
+        src="/images/disnep.png"
+        alt="disney"
+        layout="fill"
+        objectFit="cover"
+      />
       <video
         autoPlay
         loop

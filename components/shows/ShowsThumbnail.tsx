@@ -17,6 +17,7 @@ const ShowsThumbnail = ({ result }: IProps) => {
             `${BASE_URL}${result.backdrop_path || result.poster_path}` ||
             `${BASE_URL}${result.poster_path}`
           }
+          alt="thumbnail"
           width={330}
           height={210}
           objectFit="cover"

@@ -43,7 +43,7 @@ export default function Header() {
         <a>
           <Image
             src="/images/logo.svg"
-            alt=""
+            alt="thumbnail"
             width={80}
             height={80}
             className="cursor-pointer"
@@ -71,6 +71,7 @@ export default function Header() {
         </button>
       ) : (
         <img
+          alt="person"
           src={session?.user?.image || undefined}
           className="ml-auto h-12 w-12 rounded-full object-cover cursor-pointer"
           onClick={() => signOut()}

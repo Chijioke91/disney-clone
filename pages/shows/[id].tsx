@@ -31,6 +31,7 @@ export default function Show({ result }: IProps) {
             layout="fill"
             objectFit="cover"
             objectPosition="center"
+            alt="backdrop"
           />
         </div>
         <div className="absolute inset-y-12 md:inset-y-auto md:bottom-10 inset-x-4 md:inset-x-12 space-y-6 z-50">
@@ -41,7 +42,7 @@ export default function Show({ result }: IProps) {
             <button className="text-xs md:text-base bg-[#f9f9f9] text-black flex items-center justify-center py-2.5 px-6 rounded hover:bg-[#c6c6c6]">
               <img
                 src="/images/play-icon-black.svg"
-                alt=""
+                alt="thumbnail"
                 className="h-6 md:h-8"
               />
               <span className="uppercase font-medium tracking-wide">Play</span>
@@ -53,7 +54,7 @@ export default function Show({ result }: IProps) {
             >
               <img
                 src="/images/play-icon-white.svg"
-                alt=""
+                alt="thumbnail"
                 className="h-6 md:h-8"
               />
               <span className="uppercase font-medium tracking-wide">
@@ -66,14 +67,19 @@ export default function Show({ result }: IProps) {
             </div>
 
             <div className="rounded-full border-2 border-white flex items-center justify-center w-11 h-11 cursor-pointer bg-black/60">
-              <img src="/images/group-icon.svg" alt="" />
+              <img src="/images/group-icon.svg" alt="thumbnail" />
             </div>
           </div>
 
           <p className="text-xs md:text-sm">
             {result.first_air_date} • {result.number_of_seasons}{' '}
             {result.number_of_seasons === 1 ? 'Season' : 'Seasons'} •{' '}
-            {result.genres!.map((genre) => genre.name + ' ')}{' '}
+            {result.genres!.map((genre) => (
+              <span key={genre.id}>
+                <span>{genre.name} </span>
+                <span> </span>
+              </span>
+            ))}
           </p>
           <h4 className="text-sm md:text-lg max-w-4xl">{result.overview}</h4>
         </div>
@@ -105,6 +111,7 @@ export default function Show({ result }: IProps) {
               style={{ position: 'absolute', top: '0', left: '0' }}
               controls={true}
               playing={showPlayer}
+              alt="thumbnail"
             />
           </div>
         </div>
