@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       fontFamily: {
         body: ['Nunito', 'Poppins', 'sans-serif'],
+        title: ['Tangerine', 'Poppins', 'sans-serif'],
       },
       backgroundImage: () => ({
         home: "url('/images/background.png')",
@@ -15,5 +16,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 };

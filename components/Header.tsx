@@ -62,7 +62,7 @@ export default function Header() {
       {!loading && !session ? (
         <button
           className="ml-auto uppercase border px-4 py-1.5 rounded font-medium tracking-wide hover:bg-white hover:text-black transition duration-200"
-          onClick={() => signIn()}
+          onClick={() => signIn('google')}
         >
           Login
         </button>
