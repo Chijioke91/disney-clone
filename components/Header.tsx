@@ -25,12 +25,17 @@ const icons: IconType[] = [
   {
     id: 5,
     title: 'Movies',
-    icon: <img src="/images/movie-icon.svg" alt="" className="h-5" />,
+    // icon: <img src="/images/movie-icon.svg" alt="" className="h-5" />,
+    icon: (
+      <Image src="/images/movie-icon.svg" alt="movie" width={20} height={20} />
+    ),
   },
   {
     id: 6,
     title: 'Series',
-    icon: <img src="/images/series-icon.svg" alt="" className="h-5" />,
+    icon: (
+      <Image src="/images/series-icon.svg" alt="movie" width={20} height={20} />
+    ),
   },
 ];
 
@@ -53,8 +58,8 @@ export default function Header() {
       {session && (
         <div className="hidden ml-10 md:flex items-center space-x-6">
           {icons.map(({ id, icon, title }: IconType) => (
-            <Link href="/">
-              <a className="header-link group" key={id}>
+            <Link href="/" key={id}>
+              <a className="header-link group">
                 {icon}
                 <span className="span">{title}</span>
               </a>
