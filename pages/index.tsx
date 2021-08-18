@@ -21,11 +21,11 @@ const Home: NextPage<PageProps> = ({
   topRatedMovies,
   topRatedShows,
 }) => {
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   return (
     <Layout>
-      {!loading && !session ? (
+      {!session ? (
         <Landing />
       ) : (
         <main className="relative min-h-screen after:bg-home after:bg-center after:bg-cover after:bg-no-repeat after:bg-fixed after:absolute after:inset-0 after:z-[-1]">

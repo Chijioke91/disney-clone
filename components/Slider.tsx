@@ -1,8 +1,6 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 
-// const images = ['1', '2', '3', '4']
-
 function Slider() {
   return (
     <section className="relative mt-7 shadow-2xl max-w-screen-2xl mx-auto">

@@ -4,23 +4,23 @@ import Image from 'next/image';
 import { PlusIcon, XIcon } from '@heroicons/react/solid';
 import ReactPlayer from 'react-player/lazy';
 import { GetServerSideProps } from 'next';
-import { formatSingleMovie, SingleMovieType } from '../../util/format-data';
+import { formatSingleShow, SingleShowType } from '../../util/format-data';
 import Layout from '../../components/Layout';
 
 type IProps = {
-  result: SingleMovieType;
+  result: SingleShowType;
 };
 
-export default function Movie({ result }: IProps) {
+export default function Show({ result }: IProps) {
   const BASE_URL = 'https://image.tmdb.org/t/p/original/';
   const [showPlayer, setShowPlayer] = useState(false);
 
-  const videoIndex = result.videos.results.findIndex(
+  const showIndex = result.videos.results.findIndex(
     (video) => video.type === 'Trailer'
   );
 
   return (
-    <Layout title={result.title || result.original_name}>
+    <Layout title={result.original_name || ''}>
       <section className="relative z-50">
         <div className="relative min-h-[calc(100vh-72px)]">
           <Image
@@ -30,11 +30,12 @@ export default function Movie({ result }: IProps) {
             }
             layout="fill"
             objectFit="cover"
+            objectPosition="center"
           />
         </div>
-        <div className="absolute inset-y-28 md:inset-y-auto md:bottom-10 inset-x-4 md:inset-x-12 space-y-6 z-50">
+        <div className="absolute inset-y-12 md:inset-y-auto md:bottom-10 inset-x-4 md:inset-x-12 space-y-6 z-50">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold">
-            {result.title || result.original_name}
+            {result.original_name}
           </h1>
           <div className="flex items-center space-x-3 md:space-x-5">
             <button className="text-xs md:text-base bg-[#f9f9f9] text-black flex items-center justify-center py-2.5 px-6 rounded hover:bg-[#c6c6c6]">
@@ -70,8 +71,8 @@ export default function Movie({ result }: IProps) {
           </div>
 
           <p className="text-xs md:text-sm">
-            {result.release_date} • {Math.floor(result.runtime! / 60)}h{' '}
-            {result.runtime! % 60}m •{' '}
+            {result.first_air_date} • {result.number_of_seasons}{' '}
+            {result.number_of_seasons === 1 ? 'Season' : 'Seasons'} •{' '}
             {result.genres!.map((genre) => genre.name + ' ')}{' '}
           </p>
           <h4 className="text-sm md:text-lg max-w-4xl">{result.overview}</h4>
@@ -98,7 +99,7 @@ export default function Movie({ result }: IProps) {
           </div>
           <div className="relative pt-[56.25%]">
             <ReactPlayer
-              url={`https://www.youtube.com/watch?v=${result.videos?.results[videoIndex]?.key}`}
+              url={`https://www.youtube.com/watch?v=${result.videos?.results[showIndex]?.key}`}
               width="100%"
               height="100%"
               style={{ position: 'absolute', top: '0', left: '0' }}
@@ -118,14 +119,6 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
   const session = await getSession({ req });
 
-  const { id } = query;
-
-  const response = await fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&append_to_response=videos`
-  );
-
-  const jsonResponse = await response.json();
-
   if (!session) {
     return {
       redirect: {
@@ -135,10 +128,18 @@ export const getServerSideProps: GetServerSideProps = async ({
     };
   }
 
+  const { id } = query;
+
+  const response = await fetch(
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.MOVIE_DB_API_KEY}&language=en-US&append_to_response=videos`
+  );
+
+  const jsonResponse = await response.json();
+
   return {
     props: {
       session,
-      result: formatSingleMovie(jsonResponse),
+      result: formatSingleShow(jsonResponse),
     },
   };
 };

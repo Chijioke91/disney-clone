@@ -1,7 +1,7 @@
 import { DetailedHTMLProps, ImgHTMLAttributes } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/client';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import Link from 'next/link';
 import {
   HomeIcon,
   SearchIcon,
@@ -35,31 +35,34 @@ const icons: IconType[] = [
 ];
 
 export default function Header() {
-  const router = useRouter();
-
-  const [session, loading] = useSession();
+  const [session] = useSession();
 
   return (
     <header className="sticky bg-[#040714] top-0 z-[1000] flex items-center px-10 md:px-12 h-[72px]">
-      <Image
-        src="/images/logo.svg"
-        alt=""
-        width={80}
-        height={80}
-        className="cursor-pointer"
-        onClick={() => router.push('/')}
-      />
-      {!loading && session && (
+      <Link href="/">
+        <a>
+          <Image
+            src="/images/logo.svg"
+            alt=""
+            width={80}
+            height={80}
+            className="cursor-pointer"
+          />
+        </a>
+      </Link>
+      {session && (
         <div className="hidden ml-10 md:flex items-center space-x-6">
           {icons.map(({ id, icon, title }: IconType) => (
-            <a className="header-link group" key={id}>
-              {icon}
-              <span className="span">{title}</span>
-            </a>
+            <Link href="/">
+              <a className="header-link group" key={id}>
+                {icon}
+                <span className="span">{title}</span>
+              </a>
+            </Link>
           ))}
         </div>
       )}
-      {!loading && !session ? (
+      {!session ? (
         <button
           className="ml-auto uppercase border px-4 py-1.5 rounded font-medium tracking-wide hover:bg-white hover:text-black transition duration-200"
           onClick={() => signIn('google')}
